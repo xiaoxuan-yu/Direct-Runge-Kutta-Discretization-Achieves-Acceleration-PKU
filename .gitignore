@@ -1,2 +1,5 @@
 /.ipynb_checkpoints/
 /literature/
+*.bcf
+*.xml
+*.gz
