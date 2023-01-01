@@ -3,3 +3,7 @@
 *.bcf
 *.xml
 *.gz
+*.aux
+*.log
+*.out
+*.synctex
