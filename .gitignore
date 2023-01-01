@@ -1,4 +1,5 @@
 /.ipynb_checkpoints/
+/numerical/.ipynb_checkpoints/
 /literature/
 *.bcf
 *.xml
@@ -7,3 +8,4 @@
 *.log
 *.out
 *.synctex
+README.md
