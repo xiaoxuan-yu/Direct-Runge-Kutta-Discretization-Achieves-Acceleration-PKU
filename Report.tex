@@ -30,12 +30,17 @@
 \usepackage{booktabs}       % professional-quality tables
 \usepackage{amsfonts}       % blackboard math symbols
 \usepackage{amsmath}
+\usepackage{amsthm}
 \usepackage{nicefrac}       % compact symbols for 1/2, etc.
 \usepackage{microtype}      % microtypography
 \usepackage{xcolor}         % colors
 \usepackage[backend=biber]{biblatex}
 \usepackage{graphicx}
 \usepackage{subcaption}
+
+\newtheorem{assumption}{Assumption}
+\newtheorem{definition}{Definition}
+\newtheorem{theorem}{Theorem}
 
 \addbibresource{reference.bib}
 
@@ -96,7 +101,39 @@
   must be limited to one paragraph.
 \end{abstract}
 
+\input{overview_part_draft.tex}
 \input{numerical experiments.tex}
+\section{Discussion}
+
+\subsection{Intuitive knowledge}
+
+Roughly speaking, this article allows for the design of optimization
+methods via direct discretization using Runge-Kutta integrators. However, the two
+assumptions required would be essential. \textbf{Assumption 1} quantifies the local flatness
+of convex functions in a way, and it actually contradicts our normal impression that
+gradient descent converges fast when the objective is not flat. This innovative discovery
+may inspire people to hold a more modern opinion towards the connection between
+convergence and local flatness. Also, the article claims that with careful
+analysis, discretizing ODE can preserve some of its trajectories properties.
+As a result, making further research on continuous ODE or appling the KR method to
+more general ODE cases can be valuable.
+
+\subsection{Potential research directions}
+
+To make further steps, there are quite some choices to take. The article uses conditions
+of higher-order differentiability to finally achieve an algorithm involving only
+first-order differential. We can see if allowing second and higher-order differential in
+the final algorithm will make things different, though in that case \textsc{Nag} method
+would be useless so we have to find another acceleration method to start with. Furthermore,
+as discussed above, the influence of local flatness to the convergence behaviour in
+discretized integraters is worth digging. How does the process of integration approaching
+actually work? What's the instinctive impact of local differentials and higher-order
+differentials? With techniques we know, some new results might be discovered.\\\\
+To make a bold move, adding some random part to the conditions might leads to some
+interesting facts.\\\\
+\textcolor{red}{If someone comes up with more technical idea or just something creative,
+  we can add here.}
+
 
 \printbibliography
 

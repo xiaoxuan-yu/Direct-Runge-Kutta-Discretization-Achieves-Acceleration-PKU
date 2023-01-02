@@ -1,5 +1,5 @@
 \section{Numerical Experiments}
-As the final part of our report, we implement the algorithms in the original article with \texttt{Julia} and its package \texttt{DifferentialEquations.jl} \cite{rackauckas2017differentialequations}. By comparing ODE direct discretizating (DD) methods described in the article against gradient descent (GD) and Nesterov's accelerated gradient (NAG) methods, we con verify the main results in the theoretical part. The code of these experiments can be found here: \url{https://github.com/xiaoxuan-yu/Direct-Runge-Kutta-Discretization-Achieves-Acceleration-PKU}.
+In this section, we implement the algorithms in the original article with \texttt{Julia} and its package \texttt{DifferentialEquations.jl} \cite{rackauckas2017differentialequations}. By comparing ODE direct discretizating (DD) methods described in the article against gradient descent (GD) and Nesterov's accelerated gradient (NAG) methods, we con verify the main results in the theoretical part. The code of these experiments can be found here: \url{https://github.com/xiaoxuan-yu/Direct-Runge-Kutta-Discretization-Achieves-Acceleration-PKU}.
 
 Inspired by the numerical results by \textcite{NEURIPS2019_7a2b33c6}, we generate normal distributed separable dataset and fit a linear model \(Ax=b\). Then, we minimize three different kinds of loss functions:
 \begin{equation}
