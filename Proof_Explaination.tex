@@ -1,0 +1,196 @@
+\begin{document}
+
+\section{Summary} 
+\begin{itemize}
+    \item The proof begins by defining a Lyapunov function $\mathcal{E}$ that quantifies progress and shows that it is monotonically non-increasing along the continuous trajectory of the ODE. This means that the value of the Lyapunov function is always decreasing or remaining the same along the trajectory, which implies that the suboptimality of the solution $f(x) - f(x^*)$ and the norm of the gradient $v$ are bounded above by some constants.
+
+    \item The proof then focuses on bounding the distance between the points in the discretized and continuous trajectories. This is done by showing that the difference between the two points is bounded by the step size of the numerical integrator. Specifically, it is shown that there exists a constant $C_1$ such that the distance between the points is bounded by $C_1 h^{s+1}$, where $h$ is the step size and $s$ is the order of the Runge-Kutta integrator.
+
+    \item Using the bound on the distance between the points in the discretized and continuous trajectories, the proof then shows that the Lyapunov function is also monotonically non-increasing along the discretized trajectory. This means that the value of the Lyapunov function is always decreasing or remaining the same along the discretized trajectory, which implies that the suboptimality of the solution is also decreasing or remaining the same.
+
+    \item Finally, the proof uses the continuity of the Lyapunov function and the bound on the distance between the points in the discretized and continuous trajectories to show that the suboptimality of the discretized sequence of points also converges to zero quickly. Specifically, it is shown that there exists a constant $C_2$ such that the suboptimality of the discretized sequence of points is bounded by $C_2 \mathcal{E}_0 [(L+M+1)\mathcal{E}_0/N^{s/(s+1)}]^p$, where $\mathcal{E}_0$ is the initial value of the Lyapunov function, $N$ is the total number of iterations, and $p$ is a positive constant that depends on the order of differentiability of the objective function. This result implies that the suboptimality of the discretized sequence of points converges to zero at a rate that is close to $O(N^{-p})$ with respect to the number of gradient evaluations.
+\end{itemize}
+\newpage
+\section{Explanation}
+The proof of Theorem 1 consists of three main steps:
+
+    \begin{enumerate}
+        \item Showing that the suboptimality of the continuous trajectory of the ODE (11) converges to zero sufficiently fast.
+
+        \item Bounding the distance between points in the discretized and continuous trajectories, which measures the error introduced by using a numerical integrator.
+
+        \item Using continuity of the Lyapunov function and the bound on the distance between the points in the discretized and continuous trajectories to show that the suboptimality of the discretized sequence of points also converges to zero quickly.
+    \end{enumerate}
+
+Let's go through each of these steps in more detail:
+
+\begin{enumerate}
+
+    \item To show that the suboptimality of the continuous trajectory of the ODE (11) converges to zero sufficiently fast, the proof uses a Lyapunov function $\mathcal{E}$ defined as:
+    $$
+    \mathcal{E}([v ; x ; t]):=\frac{t^{2}}{4 p^{2}}|v|^{2}+\left|x+\frac{t}{2 p} v-x^*{}\right|^{2}+t^{p}\left(f(x)-f\left(x^{*}\right)\right) .
+    $$
+
+    The Lyapunov function is a measure of the suboptimality of the solution and the norm of the gradient, and it is chosen such that it is monotonically non-increasing along the continuous trajectory of the ODE. This property is established in Proposition 5, which shows that the time derivative of the Lyapunov function is non-positive and bounded above:
+
+    $$
+    \dot{\mathcal{E}}(y) \leq-\frac{t}{p}|v|^{2} .
+    $$
+
+    This monotonicity of the Lyapunov function implies that the suboptimality of the solution and the norm of the gradient are non-increasing along the continuous trajectory of the ODE, which in turn implies that the algorithm is making progress towards the optimal solution.
+
+    In the first step of the proof, the goal is to show that the function $\mathcal{E}$ defined as:
+
+$$
+\mathcal{E}([v ; x ; t]) := \frac{t^2}{4p^2} |v|^2 + |x + \frac{t}{2p} v - x^*|^2 + t^p (f(x) - f(x^*))
+$$
+
+    is non-increasing with time, i.e., $\dot{\mathcal{E}}(y) \le 0$.
+
+    To prove this, the proof first computes the time derivative of $\mathcal{E}$:
+
+$$
+\dot{\mathcal{E}}(y) = \left\langle \frac{\partial \mathcal{E}}{\partial y}, F(y) \right\rangle
+$$
+
+    where $y = [v; x; t] \in \mathbb{R}^{2d+1}$ and $F(y) = [v; x; t]$ is the vector field defined in the ODE (11).
+
+    Then, using the definition of $\mathcal{E}$ and the expression for $F(y)$, the proof obtains:
+
+$$
+\dot{\mathcal{E}}(y) = \frac{t^2}{p^2} \left\langle v, \frac{\nabla f(x)}{|\nabla f(x)|} \right\rangle - \frac{t}{p} \left\langle x + \frac{t}{2p} v - x^*, \frac{\nabla f(x)}{|\nabla f(x)|} \right\rangle
+$$
+
+    The proof then uses the convexity of the function $f$ and the Cauchy-Schwarz inequality to bound this expression and obtain:
+
+$$
+\dot{\mathcal{E}}(y) \le -\frac{t}{p} |v|^2
+$$
+
+    This inequality shows that the function $\mathcal{E}$ is non-increasing with time.
+
+    \item To bound the distance between points in the discretized and continuous trajectories, the proof uses a standard result from the theory of numerical integration that states that for a given ODE $\dot{y}=F(y)$, the error between the true solution $\varphi_h(y_0)$ and the numerical solution $\Phi_h(y_0)$ generated by a numerical integrator with step size $h$ is bounded by $C_1 h^{s+1}$, where $C_1$ is a constant and $s$ is the order of the numerical integrator.
+    In the second step of the proof, the goal is to bound the distance between the points in the discretized and continuous trajectories. To do this, the proof defines a sequence of points $y_k$ in the continuous trajectory such that $y_k = \varphi_h(y_{k-1})$, where $y_0$ is the initial point. Then, the proof defines the discretized sequence of points $z_k$ as $z_k = \Phi_h(y_{k-1})$.
+
+    The proof proceeds by using a Taylor expansion to express the difference between the continuous and discretized points as:
+
+    $$
+    |z_k - y_k| \le \frac{h^{s+1}}{(s+1)!} |F^{(s+1)}(\xi_k)|
+    $$
+
+    where $\xi_k$ is some point on the segment connecting $y_{k-1}$ and $y_k$.
+
+    The proof then uses Assumption 2, which states that the $(s+1)$th derivative of the vector field $F$ is bounded, to obtain:
+
+    $$
+    |z_k - y_k| \le C_1 h^{s+1}
+    $$
+
+    where $C_1$ is a constant that depends on the bound on the $(s+1)$th derivative of $F$. This inequality provides a bound on the distance between the points in the discretized and continuous trajectories.
+
+    \item Using this bound on the distance between the points in the discretized and continuous trajectories and the continuity of the Lyapunov function, the proof shows that the suboptimality of the discretized sequence of points also converges to zero quickly.
+    More specifically, the proof defines a sequence of points $y_k$ in the continuous trajectory such that $y_k = \varphi_h(y_{k-1})$, where $y_0$ is the initial point. Then, the proof defines the discretized sequence of points $z_k$ as $z_k = \Phi_h(y_{k-1})$. Using the bound on the distance between the points in the discretized and continuous trajectories, the proof shows that:
+
+$$
+|z_k - y_k| \le C_1 h^{s+1}
+$$
+
+    Then, using the continuity of the Lyapunov function, the proof shows that:
+
+$$
+|\mathcal{E}(z_k) - \mathcal{E}(y_k)| \le L |z_k - y_k|
+$$
+
+    where $L$ is the Lipschitz constant of the Lyapunov function. Combining these two inequalities, the proof obtains:
+
+$$
+|\mathcal{E}(z_k) - \mathcal{E}(y_k)| \le L C_1 h^{s+1}
+$$
+
+    Then, by the monotonicity of the Lyapunov function, the proof has:
+
+$$
+\mathcal{E}(z_k) \le \mathcal{E}(y_k) \le \mathcal{E}(y_0)
+$$
+
+    Substituting this inequality back into the previous one, the proof obtains:
+
+$$
+\mathcal{E}(y_0) - \mathcal{E}(z_k) \le L C_1 h^{s+1}
+$$
+
+    Finally, the proof sets the step size $h = C_1 N^{-1/(s+1)}(L+M+1)^{-1} \mathcal{E}_0^{-1}$ and shows that the suboptimality of the discretized sequence of points $f(x_N) - f(x^*)$ is bounded by: 
+$$
+f(x_N) - f(x^*) \le C_2 \mathcal{E}_0 \left[\frac{(L+M+1) \mathcal{E}_0}{N^{s/(s+1)}}\right]^p
+$$
+
+    where the constants $C_1$ and $C_2$ depend on the order $s$ of the numerical integrator and the parameter $p$.
+
+     The objective function $f$ is convex and satisfies certain conditions, then using a high-order numerical integrator to discretize the ODE (11) results in an algorithm that converges to the optimal solution at a rate close to $\mathcal{O}(N^{-p})$.
+
+    In the third step of the proof, the goal is to use the bound on the distance between the points in the discretized and continuous trajectories, together with the continuity of the Lyapunov function $\mathcal{E}$, to show that the suboptimality of the discretized sequence of points also converges to zero quickly.
+    
+    To do this, the proof first defines a sequence of points $z_k$ in the discretized trajectory such that $z_k = \Phi_h(y_{k-1})$, where $y_k = \varphi_h(y_{k-1})$ is the corresponding point in the continuous trajectory.
+
+    Then, the proof uses the bound on the distance between the points in the discretized and continuous trajectories, together with the continuity of $\mathcal{E}$, to obtain:
+
+$$
+|\mathcal{E}(y_k) - \mathcal{E}(z_k)| \le C_2 |y_k - z_k|
+$$
+
+    where $C_2$ is a constant that depends on the Lipschitz constant of $\mathcal{E}$.
+
+    Finally, the proof uses the bound on the distance between the points in the discretized and continuous trajectories to bound the right-hand side of this inequality and obtain:
+
+$$
+|\mathcal{E}(y_k) - \mathcal{E}(z_k)| \le C_3 h^{s+1}
+$$
+
+    where $C_3$ is a constant that depends on $C_1$ and $C_2$. This inequality shows that the suboptimality of the discretized sequence of points also converges to zero quickly.
+
+    the suboptimality of the continuous and discretized sequences of points converges to zero by using a Lyapunov function $\mathcal{E}$ defined as:
+
+$$
+\mathcal{E}([v ; x ; t]):=\frac{t^{2}}{4 p^{2}}|v|^{2}+\left|x+\frac{t}{2 p} v-x^{}\right|^{2}+t^{p}\left(f(x)-f\left(x^{}\right)\right) .
+$$
+
+The Lyapunov function is a measure of the suboptimality of the solution and the norm of the gradient, and it is chosen such that it is monotonically non-increasing along the continuous and discretized trajectories of the ODE. This property is established in Proposition 5, which shows that the time derivative of the Lyapunov function is non-positive and bounded above:
+
+$$
+\dot{\mathcal{E}}(y) \leq-\frac{t}{p}|v|^{2} .
+$$
+
+This monotonicity implies that both the suboptimality of the solution $f(x) - f(x^*)$ and the norm of the gradient $|v|$ are bounded above by some constants.
+
+To bound the distance between points in the discretized and continuous trajectories, the proof shows that there exists a constant $C_1$ such that the distance between the points is bounded by $C_1 h^{s+1}$, where $h$ is the step size and $s$ is the order of the Runge-Kutta integrator. This bound on the distance between the points is used to show that the Lyapunov function is also monotonically non-increasing along the discretized trajectory.
+
+
+
+    This completes the proof of Theorem 1.
+\end{enumerate}
+\newpage 
+
+\section{Comments}
+ \begin{itemizedot}
+     \item The proof relies on the assumption that the objective function $f$ is convex and satisfies certain conditions on its derivatives, which are stated as Assumptions 1 and 2 in the theorem. These assumptions are necessary for the Lyapunov function to be monotonically non-increasing along the continuous trajectory of the ODE and for the suboptimality of the solution to converge to zero.
+
+     \item The bound on the distance between the points in the discretized and continuous trajectories depends on the order of the Runge-Kutta integrator used. Higher-order integrators can provide a tighter bound, which leads to a faster convergence rate for the suboptimality of the discretized sequence of points.
+
+     \item The theorem states that the Direct Runge-Kutta Discretization method can achieve a convergence rate that is close to $O(N^{-p})$ with respect to the number of gradient evaluations, where $N$ is the total number of iterations and $p$ is a positive constant that depends on the order of differentiability of the objective function. This convergence rate is faster than the $O(N^{-1})$ rate which is typically achieved by first-order methods such as gradient descent.
+
+     \item One possible remark is that the constants $C_1$ and $C_2$ in the proof depend on the order of the Runge-Kutta integrator and the positive constant $p$ that depends on the order of differentiability of the objective function. These constants can affect the convergence rate of the algorithm and the step size $h$ that needs to be chosen. In particular, choosing a higher order integrator or a higher order of differentiability may lead to better convergence rates, but also requires a smaller step size to achieve these rates. On the other hand, choosing a smaller step size may increase the computational cost of the algorithm. It is important to carefully balance these trade-offs in practice to achieve good performance.
+
+     \item Another remark is that the proof assumes the existence of a solution $x^*$ that minimizes the objective function $f(x)$. This assumption is necessary for the Lyapunov function $\mathcal{E}$ to be well-defined and for the convergence result to hold. In practice, it may be challenging to verify the existence of such a solution, especially when the objective function is nonconvex. In these cases, it is important to carefully choose the initial point $x_0$ and the step size $h$ to ensure that the algorithm converges to a good approximate solution.
+
+    \item Finally, it is worth noting that the proof of Theorem 1 relies on several technical assumptions, such as convexity of the objective function, Lipschitz continuity of the gradient, and boundedness of high order derivatives. These assumptions are typically required to establish convergence results for optimization algorithms, but may not always hold in practice. It is important to carefully verify these assumptions before applying the algorithm and to choose appropriate algorithms or methods if these assumptions are not satisfied.
+     
+ \end{itemizedot}
+\newpage
+\section{Further improvements}
+\begin{itemize}
+    \item One additional point that may be helpful in understanding the proof is that the Lyapunov function is used to quantify the progress of the algorithm in terms of the suboptimality of the solution and the norm of the gradient. The monotonicity of the Lyapunov function along the continuous and discretized trajectories implies that these quantities are non-increasing, which in turn implies that the algorithm is making progress towards the optimal solution.
+
+    \item Another point to consider is that the proof relies on the existence of a constant $C_1$ such that the distance between the points in the discretized and continuous trajectories is bounded by $C_1 h^{s+1}$. This constant is not explicitly calculated in the proof, but it is stated that replacing $C_1$ with any smaller positive constant leads to the same polynomial rate of convergence. This means that the specific value of $C_1$ is not important for achieving the desired convergence rate, as long as it is small enough.
+\end{itemize}
+
+\end{document}
