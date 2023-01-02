@@ -13,7 +13,7 @@ Firstly let's focus the essential target problem:
 \begin{align}\label{min}
   \mathop{\mathrm{min}}\limits_{x \in \mathbb{R}^{d}} f(x),
 \end{align}
-where $f$ is convex and sufficiently smooth. For solving \ref{min}, there are several
+where $f$ is convex and sufficiently smooth. For solving \eqref{min}, there are several
 methods.
 \begin{itemize}
   \item Classical method: gradient decent, which displays a sub-optimal convergence rate of $\mathcal{O}(N^{-1})$.
@@ -34,7 +34,7 @@ consider the sublevel set
   \mathcal{S} := \{ x \in \mathbb{R}^{d} | f(x) \leq \mathrm{exp}(1) (f(x_{0})
   - f(x^{*}) + \|x_{0} - x^{*}\|^{2}) + 1 \},
 \end{align}
-where $x^{*}$ is the minimum of \ref{min}. The introduction of set $\mathcal{S}$
+where $x^{*}$ is the minimum of \eqref{min}. The introduction of set $\mathcal{S}$
 actually gives a restriction of the sequence of iterates obtained from
 discretizing a suitable ODE (would be proved later). Denote subset
 \begin{align}
@@ -57,7 +57,7 @@ Then all assumptions we may require can be considered just in $\mathcal{A}$.
   \end{align}
 \end{assumption}
 
-When the sublevel sets of $f$ are compact and hence the set $\mathcal{A}$ is also compact; as a result, the bound \ref{assum_2} on high order derivatives is implied by continuity.
+When the sublevel sets of $f$ are compact and hence the set $\mathcal{A}$ is also compact; as a result, the bound \eqref{assum_2} on high order derivatives is implied by continuity.
 
 \subsection{Runge-Kutta\ integrators}
 
@@ -82,7 +82,7 @@ Then focus on the NAG method that is defined according to the updates
 \begin{align}\label{nag}
   x_{k} = y_{k-1} - h \nabla f(y_{k-1}),\ \ \ y_{k} = x_{k} + \frac{k-1}{k+2} (x_{k} - x_{k-1}).
 \end{align}
-\textcite{JMLR:v17:15-084} showed that the iteration \ref{nag} in the limit is equivalent to the
+\textcite{JMLR:v17:15-084} showed that the iteration \eqref{nag} in the limit is equivalent to the
 following ODE
 \begin{align}\label{nag_ode_1}
   \ddot{x}(t) + \frac{3}{t} \dot{x}(t) + \nabla f(x(t)) = 0,\ \ \ \mathrm{where\ }
@@ -103,12 +103,12 @@ $p \geq 2$.
 \\\\According to some related work, deriving the ODE from the algorithm is now a solved
 problem. Nevertheless, to derive the update of NAG or any other
 accelerated method by directly discretizing an ODE is not. Some work points out that
-explicit Euler discretization of the ODE in \ref{nag_ode_1} may not lead to a stable
+explicit Euler discretization of the ODE in \eqref{nag_ode_1} may not lead to a stable
 algorithm. \textcite{https://doi.org/10.48550/arxiv.1802.03653} observed empirically that Verlet
 integration is stable and suggested that the stability relates to the symplectic
-property of the Verlet integration, but for dissipative systems such as \ref{nag_ode_2},
+property of the Verlet integration, but for dissipative systems such as \eqref{nag_ode_2},
 this doesn't hold. This article offers a different approach: it augments the state with
-time in \ref{nag_ode_2}, and focuses the following ODE
+time in \eqref{nag_ode_2}, and focuses the following ODE
 \begin{align}\label{nag_ode_final}
   \ddot{x}(t) + \frac{2p+1}{t} \dot{x}(t) + p^{2}t^{p-2} \nabla f(x(t)) = 0.
 \end{align}
@@ -116,7 +116,7 @@ This actually turns the non-autonomous dynamical system into an autonomous one.
 
 \subsection{Main\ conclusion}
 
-The ODE in \ref{nag_ode_final} can also be written as the dynamical system
+The ODE in \eqref{nag_ode_final} can also be written as the dynamical system
 \begin{align}\label{equation}
   \dot{y} = F(y) = \begin{bmatrix}
                      -\frac{2p+1}{t} v - p^{2}t^{p-2} \nabla f(x) \\
@@ -130,14 +130,14 @@ $p,L,M$ are the same as in Assumptions\\
 2. Set step size $h = C/N^{(1/s+1)}$ \hfill $\triangleright$ C is determined by
 $p,L,M,s,x_{0}$\\
 3. $x_{N} \leftarrow $ Oreder-s-Runge-Kutta-Integrater($F,y_{0},N,h$) \hfill $\triangleright$
-F is defined in equation \ref{equation}\\
+F is defined in equation \eqref{equation}\\
 4. \textbf{return} $x_{N}$\\\\
 Since the article has augmented the state with time to obtain an autonomous system,
 it can be readily solved numerically with a Runge-Kutta integrator as in
 \textbf{Algorithm 1}.
 
 \begin{theorem}
-  Consider the second-order ODE in \ref{nag_ode_final}. Suppose that the function $f$ is convex and Assumptions 1 and 2 are satisfied. Further, let s be the order of the Runge-Kutta integrator used in \textbf{Algorithm 1}, $N$ be the total number of iterations, and $x_0$ be the initial point. Also, let $\mathcal{E}_{0} := f(x_{0}) - f(x^{*}) + \|x_{0} - x^{*}\|^{2} + 1$. Then, there exists a constant $C_1$ such that if we set the step size as $h = C_{1}N^{-1/(s+1)} (L+M+1)^{-1}\mathcal{E}_{0}^{-1}$, the iterate $x_N$ generated after running \textbf{Algorithm 1} for N iterations satisfies the inequality
+  Consider the second-order ODE in \eqref{nag_ode_final}. Suppose that the function $f$ is convex and Assumptions 1 and 2 are satisfied. Further, let s be the order of the Runge-Kutta integrator used in \textbf{Algorithm 1}, $N$ be the total number of iterations, and $x_0$ be the initial point. Also, let $\mathcal{E}_{0} := f(x_{0}) - f(x^{*}) + \|x_{0} - x^{*}\|^{2} + 1$. Then, there exists a constant $C_1$ such that if we set the step size as $h = C_{1}N^{-1/(s+1)} (L+M+1)^{-1}\mathcal{E}_{0}^{-1}$, the iterate $x_N$ generated after running \textbf{Algorithm 1} for N iterations satisfies the inequality
   \begin{align}\label{thereom_1}
     f(x_{N}) - f(x^{*}) \leq C_{2}\mathcal{E}_{0} \left[
       \frac{(L+M+1)\mathcal{E}_{0}}{N^{\frac{s}{s+1}}} \right]^{p} = \mathcal{O}
