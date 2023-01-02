@@ -19,7 +19,7 @@ methods.
   \item Classical method: gradient decent, which displays a sub-optimal convergence rate of $\mathcal{O}(N^{-1})$.
   \item Nesterov's seminal accelerated gradient method, matches the oracle lower bound of $\mathcal{O}(N^{-2})$.
 \end{itemize}
-Several articles have pursued approaches to \textsc{Nag} (and accelerated methods in general)
+Several articles have pursued approaches to NAG (and accelerated methods in general)
 via a continuous-time perspective. However, they fail to provide a general
 discretization procedure that generates provably convergent accelerated methods.
 This article takes Runge-Kutta integrater as tool and introduces a second-order ODE
@@ -78,7 +78,7 @@ to discretize ODE with controlment of its convergence rates.
 
 \subsection{Formal work and inspiration}
 
-Then focus on the \textsc{Nag} method that is defined according to the updates
+Then focus on the NAG method that is defined according to the updates
 \begin{align}\label{nag}
   x_{k} = y_{k-1} - h \nabla f(y_{k-1}),\ \ \ y_{k} = x_{k} + \frac{k-1}{k+2} (x_{k} - x_{k-1}).
 \end{align}
@@ -101,7 +101,7 @@ algorithms via utilizing higher order derivatives. However, this article focuses
 first-order methods and study the stability of discretizing the ODE directly when
 $p \geq 2$.
 \\\\According to some related work, deriving the ODE from the algorithm is now a solved
-problem. Nevertheless, to derive the update of \textsc{Nag} or any other
+problem. Nevertheless, to derive the update of NAG or any other
 accelerated method by directly discretizing an ODE is not. Some work points out that
 explicit Euler discretization of the ODE in \ref{nag_ode_1} may not lead to a stable
 algorithm. \textcite{https://doi.org/10.48550/arxiv.1802.03653} observed empirically that Verlet
