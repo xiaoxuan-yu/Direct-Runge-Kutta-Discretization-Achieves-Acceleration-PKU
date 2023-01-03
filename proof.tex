@@ -1,0 +1,34 @@
+\section{Proof}
+In this section we're going to explore the proof of Theorem \ref{theorem}, the details of the proof is included in Appendix \ref{proof}.
+\subsection{Summary}
+\begin{itemize}
+    \item The proof begins by defining a Lyapunov function $\mathcal{E}$ that quantifies progress and shows that it is monotonically non-increasing along the continuous trajectory of the ODE. This means that the value of the Lyapunov function is always decreasing or remaining the same along the trajectory, which implies that the suboptimality of the solution $f(x) - f(x^*)$ and the norm of the gradient $v$ are bounded above by some constants.
+
+    \item The proof then focuses on bounding the distance between the points in the discretized and continuous trajectories. This is done by showing that the difference between the two points is bounded by the step size of the numerical integrator. Specifically, it is shown that there exists a constant $C_1$ such that the distance between the points is bounded by $C_1 h^{s+1}$, where $h$ is the step size and $s$ is the order of the Runge-Kutta integrator.
+
+    \item Using the bound on the distance between the points in the discretized and continuous trajectories, the proof then shows that the Lyapunov function is also monotonically non-increasing along the discretized trajectory. This means that the value of the Lyapunov function is always decreasing or remaining the same along the discretized trajectory, which implies that the suboptimality of the solution is also decreasing or remaining the same.
+
+    \item Finally, the proof uses the continuity of the Lyapunov function and the bound on the distance between the points in the discretized and continuous trajectories to show that the suboptimality of the discretized sequence of points also converges to zero quickly. Specifically, it is shown that there exists a constant $C_2$ such that the suboptimality of the discretized sequence of points is bounded by $C_2 \mathcal{E}_0 [(L+M+1)\mathcal{E}_0/N^{s/(s+1)}]^p$, where $\mathcal{E}_0$ is the initial value of the Lyapunov function, $N$ is the total number of iterations, and $p$ is a positive constant that depends on the order of differentiability of the objective function. This result implies that the suboptimality of the discretized sequence of points converges to zero at a rate that is close to $O(N^{-p})$ with respect to the number of gradient evaluations.
+\end{itemize}
+
+\subsection{Comments}
+\begin{itemize}
+    \item The proof relies on the assumption that the objective function $f$ is convex and satisfies certain conditions on its derivatives, which are stated as Assumptions 1 and 2 in the theorem. These assumptions are necessary for the Lyapunov function to be monotonically non-increasing along the continuous trajectory of the ODE and for the suboptimality of the solution to converge to zero.
+
+    \item The bound on the distance between the points in the discretized and continuous trajectories depends on the order of the Runge-Kutta integrator used. Higher-order integrators can provide a tighter bound, which leads to a faster convergence rate for the suboptimality of the discretized sequence of points.
+
+    \item The theorem states that the Direct Runge-Kutta Discretization method can achieve a convergence rate that is close to $O(N^{-p})$ with respect to the number of gradient evaluations, where $N$ is the total number of iterations and $p$ is a positive constant that depends on the order of differentiability of the objective function. This convergence rate is faster than the $O(N^{-1})$ rate which is typically achieved by first-order methods such as gradient descent.
+
+    \item One possible remark is that the constants $C_1$ and $C_2$ in the proof depend on the order of the Runge-Kutta integrator and the positive constant $p$ that depends on the order of differentiability of the objective function. These constants can affect the convergence rate of the algorithm and the step size $h$ that needs to be chosen. In particular, choosing a higher order integrator or a higher order of differentiability may lead to better convergence rates, but also requires a smaller step size to achieve these rates. On the other hand, choosing a smaller step size may increase the computational cost of the algorithm. It is important to carefully balance these trade-offs in practice to achieve good performance.
+
+    \item Another remark is that the proof assumes the existence of a solution $x^*$ that minimizes the objective function $f(x)$. This assumption is necessary for the Lyapunov function $\mathcal{E}$ to be well-defined and for the convergence result to hold. In practice, it may be challenging to verify the existence of such a solution, especially when the objective function is nonconvex. In these cases, it is important to carefully choose the initial point $x_0$ and the step size $h$ to ensure that the algorithm converges to a good approximate solution.
+
+    \item Finally, it is worth noting that the proof of Theorem 1 relies on several technical assumptions, such as convexity of the objective function, Lipschitz continuity of the gradient, and boundedness of high order derivatives. These assumptions are typically required to establish convergence results for optimization algorithms, but may not always hold in practice. It is important to carefully verify these assumptions before applying the algorithm and to choose appropriate algorithms or methods if these assumptions are not satisfied.
+
+\end{itemize}
+\subsection{Further improvements}
+\begin{itemize}
+    \item One additional point that may be helpful in understanding the proof is that the Lyapunov function is used to quantify the progress of the algorithm in terms of the suboptimality of the solution and the norm of the gradient. The monotonicity of the Lyapunov function along the continuous and discretized trajectories implies that these quantities are non-increasing, which in turn implies that the algorithm is making progress towards the optimal solution.
+
+    \item Another point to consider is that the proof relies on the existence of a constant $C_1$ such that the distance between the points in the discretized and continuous trajectories is bounded by $C_1 h^{s+1}$. This constant is not explicitly calculated in the proof, but it is stated that replacing $C_1$ with any smaller positive constant leads to the same polynomial rate of convergence. This means that the specific value of $C_1$ is not important for achieving the desired convergence rate, as long as it is small enough.
+\end{itemize}
